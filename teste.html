@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Acessibilidade Digital</title>
+
+    <style>
+
+        /* =====================================================
+           CONFIGURAÇÕES GERAIS
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+
+            color: #222;
+
+ 
+            transition:
+                background 0.3s ease,
+                color 0.3s ease,
+                font-family 0.3s ease;
+        }
+
+
+        /* =====================================================
+           BOTÃO PRINCIPAL DO MENU
+        ===================================================== */
+
+        .botao-menu {
+            position: fixed;
+
+            top: 20px;
+            right: 20px;
+
+            z-index: 10001;
+
+            width: auto;
+
+            padding: 12px 18px;
+
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+
+            background: #005fcc;
+            color: #ffffff;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 15px rgba(0, 0, 0, 0.3);
+
+            transition:
+                background 0.2s ease,
+                transform 0.1s ease;
+        }
+
+        .botao-menu:hover {
+            background: #004799;
+        }
+
+        .botao-menu:active {
+            transform: scale(0.97);
+        }
+
+        .botao-menu:focus {
+            outline: 3px solid #ff9800;
+            outline-offset: 3px;
+        }
+
+
+        /* =====================================================
+           PAINEL DE ACESSIBILIDADE
+        ===================================================== */
+
+        .painel-acessibilidade {
+            position: fixed;
+
+            top: 75px;
+            right: 20px;
+
+            z-index: 10000;
+
+            width: 320px;
+
+            max-height:
+                calc(100vh - 95px);
+
+            overflow-y: auto;
+
+            padding: 20px;
+
+            background:
+                rgba(255, 255, 255, 0.97);
+
+            color: #222222;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.3);
+
+            backdrop-filter: blur(10px);
+
+            /* Menu inicialmente fechado */
+            opacity: 0;
+            visibility: hidden;
+
+            transform:
+                translateY(-10px)
+                scale(0.98);
+
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease,
+                visibility 0.2s ease;
+        }
+
+
+        /* =====================================================
+           MENU ABERTO
+        ===================================================== */
+
+        .painel-acessibilidade.aberto {
+            opacity: 1;
+
+            visibility: visible;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        .painel-acessibilidade h2 {
+            margin: 0 0 5px;
+
+            font-size: 22px;
+        }
+
+
+        .painel-descricao {
+            margin-top: 0;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           CONFIGURAÇÕES
+        ===================================================== */
+
+        .configuracao {
+            padding: 16px 0;
+
+            border-bottom:
+                1px solid #cccccc;
+        }
+
+        .configuracao:last-child {
+            border-bottom: none;
+        }
+
+
+        .configuracao label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+        }
+
+
+        input[type="range"] {
+            width: 100%;
+
+            cursor: pointer;
+        }
+
+
+        .valor {
+            display: block;
+
+            margin-top: 5px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           BOTÕES DO PAINEL
+        ===================================================== */
+
+        .configuracao button {
+            width: 100%;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #005fcc;
+            color: #ffffff;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.1s ease;
+        }
+
+
+        .configuracao button:hover {
+            background: #004799;
+        }
+
+
+        .configuracao button:active {
+            transform: scale(0.98);
+        }
+
+
+        .configuracao button:focus,
+        input:focus {
+            outline: 3px solid #ff9800;
+
+            outline-offset: 3px;
+        }
+
+
+        /* =====================================================
+           CONTEÚDO PRINCIPAL
+        ===================================================== */
+
+        main {
+            width:
+                min(
+                    900px,
+                    calc(100% - 40px)
+                );
+
+            margin: 0 auto;
+
+            padding:
+                80px 0 60px;
+        }
+
+
+        .conteudo {
+            margin-bottom: 30px;
+
+            padding: 40px;
+
+            background:
+                rgba(255, 255, 255, 0.95);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 30px
+                rgba(0, 0, 0, 0.15);
+        }
+
+
+        h1 {
+            margin-top: 0;
+
+            font-size: 40px;
+
+            line-height: 1.2;
+        }
+
+
+        h2 {
+            color: #005fcc;
+
+            line-height: 1.3;
+        }
+
+
+        p {
+            margin-bottom: 18px;
+        }
+
+
+        /* =====================================================
+           CAIXA DE DESTAQUE
+        ===================================================== */
+
+        .destaque {
+            margin-top: 25px;
+
+            padding: 20px;
+
+            background: #e8f2ff;
+
+            border-left:
+                6px solid #005fcc;
+
+            border-radius: 8px;
+        }
+
+
+        /* =====================================================
+           ALTO CONTRASTE
+        ===================================================== */
+
+        body.alto-contraste {
+            background: #000000;
+
+            color: #ffffff;
+        }
+
+
+        body.alto-contraste .conteudo {
+            background: #000000;
+
+            color: #ffffff;
+
+            border:
+                2px solid #ffffff;
+        }
+
+
+        body.alto-contraste h1,
+        body.alto-contraste h2 {
+            color: #ffff00;
+        }
+
+
+        body.alto-contraste .destaque {
+            background: #000000;
+
+            color: #ffffff;
+
+            border:
+                2px solid #ffff00;
+        }
+
+
+        body.alto-contraste
+        .painel-acessibilidade {
+            background: #000000;
+
+            color: #ffffff;
+
+            border:
+                2px solid #ffffff;
+        }
+
+
+        body.alto-contraste
+        .configuracao {
+            border-color: #ffffff;
+        }
+
+
+        /* =====================================================
+           FONTE ACESSÍVEL - COMIC SANS
+        ===================================================== */
+
+        body.fonte-dislexia {
+            font-family:
+                "Comic Sans MS",
+                "Comic Sans",
+                cursive;
+        }
+
+
+        body.fonte-dislexia p,
+        body.fonte-dislexia li {
+            letter-spacing: 0.05em;
+
+            word-spacing: 0.1em;
+
+            line-height: 2;
+        }
+
+
+        body.fonte-dislexia h1,
+        body.fonte-dislexia h2 {
+            letter-spacing: 0.03em;
+        }
+
+
+        /* =====================================================
+           MODO PARA DALTONISMO
+        ===================================================== */
+
+        body.daltonismo {
+            filter:
+                contrast(1.15)
+                saturate(0.85);
+        }
+
+
+        body.daltonismo .destaque {
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    #ffffff,
+                    #ffffff 10px,
+                    #dddddd 10px,
+                    #dddddd 20px
+                );
+
+            color: #000000;
+
+            border-left:
+                8px solid #000000;
+        }
+
+
+        /* =====================================================
+           RESPONSIVIDADE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .botao-menu {
+                top: 10px;
+
+                right: 10px;
+            }
+
+
+            .painel-acessibilidade {
+                top: 65px;
+
+                right: 10px;
+
+                width:
+                    calc(100% - 20px);
+
+                max-height:
+                    calc(100vh - 75px);
+            }
+
+
+            main {
+                padding-top: 30px;
+            }
+
+
+            .conteudo {
+                padding: 25px;
+            }
+
+
+            h1 {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         BOTÃO PARA ABRIR / FECHAR O MENU
+    ===================================================== -->
+
+    <button
+        id="botao-menu"
+        class="botao-menu"
+        type="button"
+        aria-expanded="false"
+        aria-controls="painel-acessibilidade">
+
+        ♿ Acessibilidade
+
+    </button>
+
+
+    <!-- =====================================================
+         MENU DE ACESSIBILIDADE
+    ===================================================== -->
+
+    <aside
+        id="painel-acessibilidade"
+        class="painel-acessibilidade"
+        aria-label="Configurações de acessibilidade">
+
+
+        <h2>
+            Configurações
+        </h2>
+
+
+        <p class="painel-descricao">
+            Personalize a aparência e a experiência
+            de leitura desta página.
+        </p>
+
+
+        <!-- =================================================
+             SATURAÇÃO
+        ================================================== -->
+
+        <div class="configuracao">
+
+            <label for="sat-control">
+                🎨 Saturação da tela
+            </label>
+
+
+            <input
+                type="range"
+                id="sat-control"
+                min="0"
+                max="300"
+                value="100"
+                step="10"
+                aria-label="Controlar saturação da tela">
+
+
+            <span
+                id="sat-valor"
+                class="valor">
+
+                100%
+
+            </span>
+
+        </div>
+
+
+        <!-- =================================================
+             ALTO CONTRASTE
+        ================================================== -->
+
+        <div class="configuracao">
+
+            <label>
+                ◐ Alto contraste
+            </label>
+
+
+            <button
+                id="contraste-control"
+                type="button"
+                aria-pressed="false">
+
+                Ativar alto contraste
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             COMIC SANS
+        ================================================== -->
+
+        <div class="configuracao">
+
+            <label>
+                🔤 Fonte acessível
+            </label>
+
+
+            <button
+                id="dislexia-control"
+                type="button"
+                aria-pressed="false">
+
+                Ativar Comic Sans
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             DALTONISMO
+        ================================================== -->
+
+        <div class="configuracao">
+
+            <label>
+                👁️ Modo para daltonismo
+            </label>
+
+
+            <button
+                id="daltonismo-control"
+                type="button"
+                aria-pressed="false">
+
+                Ativar modo para daltonismo
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             AUDIODESCRIÇÃO
+        ================================================== -->
+
+        <div class="configuracao">
+
+            <label>
+                🔊 Audiodescrição
+            </label>
+
+
+            <button
+                id="audio-descricao"
+                type="button">
+
+                🔊 Ouvir descrição
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             RESTAURAR
+        ================================================== -->
+
+        <div class="configuracao">
+
+            <button
+                id="reset-control"
+                type="button">
+
+                ↩️ Restaurar configurações
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ===================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             INTRODUÇÃO
+        ================================================== -->
+
+        <section class="conteudo">
+
+            <h1>
+                A importância da acessibilidade digital
+            </h1>
+
+
+            <p>
+                A acessibilidade digital permite que diferentes
+                pessoas possam acessar, compreender e utilizar
+                conteúdos digitais de maneira mais confortável
+                e independente.
+            </p>
+
+
+            <p>
+                Uma página acessível oferece diferentes formas
+                de visualizar e interagir com seu conteúdo,
+                permitindo que cada usuário encontre uma
+                configuração adequada às suas necessidades.
+            </p>
+
+
+            <div class="destaque">
+
+                <strong>
+                    Acessibilidade é inclusão.
+                </strong>
+
+
+                <p>
+                    Cada pessoa possui necessidades diferentes.
+                    Por isso, oferecer opções de personalização
+                    ajuda a tornar a experiência digital mais
+                    inclusiva.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SATURAÇÃO
+        ================================================== -->
+
+        <section class="conteudo">
+
+            <h2>
+                Saturação das cores
+            </h2>
+
+
+            <p>
+                A saturação controla a intensidade das cores
+                apresentadas na tela.
+            </p>
+
+
+            <p>
+                Algumas pessoas podem preferir cores mais
+                intensas, enquanto outras podem se sentir
+                mais confortáveis com cores menos intensas.
+            </p>
+
+
+            <div class="destaque">
+
+                <strong>
+                    Por que isso é importante?
+                </strong>
+
+
+                <p>
+                    Permitir que o usuário controle a intensidade
+                    das cores aumenta a possibilidade de
+                    personalização da experiência visual.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ALTO CONTRASTE
+        ================================================== -->
+
+        <section class="conteudo">
+
+            <h2>
+                Alto contraste
+            </h2>
+
+
+            <p>
+                O alto contraste aumenta a diferença visual
+                entre o texto e o fundo.
+            </p>
+
+
+            <p>
+                Esse recurso pode facilitar a identificação
+                de textos, títulos, botões e outros elementos
+                da interface.
+            </p>
+
+
+            <div class="destaque">
+
+                <strong>
+                    Por que isso é importante?
+                </strong>
+
+
+                <p>
+                    Um contraste adequado pode melhorar
+                    significativamente a legibilidade
+                    de uma página.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FONTE
+        ================================================== -->
+
+        <section class="conteudo">
+
+            <h2>
+                Fonte acessível e leitura
+            </h2>
+
+
+            <p>
+                Algumas pessoas podem apresentar dificuldades
+                relacionadas à leitura e ao processamento
+                de textos.
+            </p>
+
+
+            <p>
+                Uma apresentação com maior espaçamento entre
+                letras, palavras e linhas pode tornar o conteúdo
+                mais confortável de ler.
+            </p>
+
+
+            <p>
+                Neste projeto, o modo de fonte acessível utiliza
+                a Comic Sans e aumenta o espaçamento do texto.
+            </p>
+
+
+            <div class="destaque">
+
+                <strong>
+                    Por que isso é importante?
+                </strong>
+
+
+                <p>
+                    Permitir que o usuário escolha uma
+                    apresentação de texto mais confortável
+                    pode facilitar sua leitura.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             DALTONISMO
+        ================================================== -->
+
+        <section class="conteudo">
+
+            <h2>
+                Modo para pessoas com daltonismo
+            </h2>
+
+
+            <p>
+                O daltonismo pode dificultar a distinção entre
+                determinadas cores.
+            </p>
+
+
+            <p>
+                Por isso, uma interface não deve depender
+                exclusivamente das cores para transmitir
+                informações importantes.
+            </p>
+
+
+            <p>
+                Textos, símbolos, padrões, formas e contrastes
+                também podem ser utilizados para tornar as
+                informações mais claras.
+            </p>
+
+
+            <div class="destaque">
+
+                <strong>
+                    Por que isso é importante?
+                </strong>
+
+
+                <p>
+                    Combinar cores com outros elementos visuais
+                    torna a interface mais inclusiva.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CONCLUSÃO
+        ================================================== -->
+
+        <section class="conteudo">
+
+            <h2>
+                Acessibilidade beneficia todos
+            </h2>
+
+
+            <p>
+                A acessibilidade não deve ser vista apenas
+                como uma adaptação para um grupo específico.
+            </p>
+
+
+            <p>
+                Interfaces acessíveis podem beneficiar pessoas
+                em diferentes situações, dispositivos e
+                ambientes.
+            </p>
+
+
+            <p>
+                Oferecer opções de personalização permite que
+                cada usuário tenha maior controle sobre a forma
+                como o conteúdo é apresentado.
+            </p>
+
+
+            <div class="destaque">
+
+                <strong>
+                    Nosso objetivo
+                </strong>
+
+
+                <p>
+                    Criar uma experiência digital mais inclusiva,
+                    confortável e fácil de utilizar.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+        /* =====================================================
+           ELEMENTOS
+        ===================================================== */
+
+        const botaoMenu =
+            document.getElementById(
+                "botao-menu"
+            );
+
+
+        const painel =
+            document.getElementById(
+                "painel-acessibilidade"
+            );
+
+
+        const tela =
+            document.documentElement;
+
+
+        const slider =
+            document.getElementById(
+                "sat-control"
+            );
+
+
+        const valorSaturacao =
+            document.getElementById(
+                "sat-valor"
+            );
+
+
+        const botaoContraste =
+            document.getElementById(
+                "contraste-control"
+            );
+
+
+        const botaoDislexia =
+            document.getElementById(
+                "dislexia-control"
+            );
+
+
+        const botaoDaltonismo =
+            document.getElementById(
+                "daltonismo-control"
+            );
+
+
+        const botaoAudio =
+            document.getElementById(
+                "audio-descricao"
+            );
+
+
+        const botaoReset =
+            document.getElementById(
+                "reset-control"
+            );
+
+
+        /* =====================================================
+           MENU ABRIR / FECHAR
+        ===================================================== */
+
+        botaoMenu.addEventListener(
+            "click",
+            function () {
+
+                const aberto =
+                    painel.classList.toggle(
+                        "aberto"
+                    );
+
+
+                botaoMenu.setAttribute(
+                    "aria-expanded",
+                    String(aberto)
+                );
+
+
+                botaoMenu.textContent =
+                    aberto
+                        ? "✕ Fechar"
+                        : "♿ Acessibilidade";
+
+            }
+        );
+
+
+        /* =====================================================
+           FECHAR CLICANDO FORA
+        ===================================================== */
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                const clicouNoPainel =
+                    painel.contains(
+                        event.target
+                    );
+
+
+                const clicouNoBotao =
+                    botaoMenu.contains(
+                        event.target
+                    );
+
+
+                if (
+                    !clicouNoPainel &&
+                    !clicouNoBotao &&
+                    painel.classList.contains(
+                        "aberto"
+                    )
+                ) {
+
+                    fecharMenu();
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           FECHAR COM ESC
+        ===================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape" &&
+                    painel.classList.contains(
+                        "aberto"
+                    )
+                ) {
+
+                    fecharMenu();
+
+                    botaoMenu.focus();
+
+                }
+
+            }
+        );
+
+
+        function fecharMenu() {
+
+            painel.classList.remove(
+                "aberto"
+            );
+
+
+            botaoMenu.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+
+            botaoMenu.textContent =
+                "♿ Acessibilidade";
+
+        }
+
+
+        /* =====================================================
+           SATURAÇÃO
+        ===================================================== */
+
+        slider.addEventListener(
+            "input",
+            function () {
+
+                const valor =
+                    slider.value;
+
+
+                tela.style.filter =
+                    `saturate(${valor}%)`;
+
+
+                valorSaturacao.textContent =
+                    `${valor}%`;
+
+            }
+        );
+
+
+        /* =====================================================
+           ALTO CONTRASTE
+        ===================================================== */
+
+        botaoContraste.addEventListener(
+            "click",
+            function () {
+
+                const ativado =
+                    document.body.classList.toggle(
+                        "alto-contraste"
+                    );
+
+
+                botaoContraste.setAttribute(
+                    "aria-pressed",
+                    String(ativado)
+                );
+
+
+                botaoContraste.textContent =
+                    ativado
+                        ? "Desativar alto contraste"
+                        : "Ativar alto contraste";
+
+            }
+        );
+
+
+        /* =====================================================
+           COMIC SANS
+        ===================================================== */
+
+        botaoDislexia.addEventListener(
+            "click",
+            function () {
+
+                const ativado =
+                    document.body.classList.toggle(
+                        "fonte-dislexia"
+                    );
+
+
+                botaoDislexia.setAttribute(
+                    "aria-pressed",
+                    String(ativado)
+                );
+
+
+                botaoDislexia.textContent =
+                    ativado
+                        ? "Desativar Comic Sans"
+                        : "Ativar Comic Sans";
+
+            }
+        );
+
+
+        /* =====================================================
+           MODO DALTONISMO
+        ===================================================== */
+
+        botaoDaltonismo.addEventListener(
+            "click",
+            function () {
+
+                const ativado =
+                    document.body.classList.toggle(
+                        "daltonismo"
+                    );
+
+
+                botaoDaltonismo.setAttribute(
+                    "aria-pressed",
+                    String(ativado)
+                );
+
+
+                botaoDaltonismo.textContent =
+                    ativado
+                        ? "Desativar modo para daltonismo"
+                        : "Ativar modo para daltonismo";
+
+            }
+        );
+
+
+        /* =====================================================
+           AUDIODESCRIÇÃO
+        ===================================================== */
+
+        let falando = false;
+
+
+        botaoAudio.addEventListener(
+            "click",
+            function () {
+
+                /*
+                 * Se estiver falando, interrompe.
+                 */
+
+                if (falando) {
+
+                    window.speechSynthesis.cancel();
+
+                    falando = false;
+
+                    botaoAudio.textContent =
+                        "🔊 Ouvir descrição";
+
+                    return;
+
+                }
+
+
+                /*
+                 * Texto que será narrado.
+                 */
+
+                const texto = `
+
+                    Bem-vindo à página sobre
+                    acessibilidade digital.
+
+                    A página apresenta informações sobre
+                    a importância da acessibilidade e
+                    oferece ferramentas para personalizar
+                    a experiência do usuário.
+
+                    No canto superior direito existe um
+                    botão chamado Acessibilidade.
+                    Esse botão abre um painel com as
+                    configurações disponíveis.
+
+                    A primeira configuração é a saturação
+                    das cores. Ela permite aumentar ou
+                    diminuir a intensidade das cores
+                    apresentadas na tela.
+
+                    A segunda configuração é o alto
+                    contraste. Esse recurso aumenta a
+                    diferença entre o texto e o fundo,
+                    facilitando a identificação dos
+                    elementos.
+
+                    A terceira configuração é a fonte
+                    acessível. Ao ativá-la, a página
+                    utiliza a fonte Comic Sans e aumenta
+                    o espaçamento do texto.
+
+                    A quarta configuração é o modo para
+                    pessoas com daltonismo. Esse recurso
+                    reduz a dependência das cores e
+                    utiliza padrões e contrastes para
+                    facilitar a compreensão.
+
+                    A página também possui uma ferramenta
+                    de audiodescrição. Ela permite ouvir
+                    uma explicação sobre o conteúdo.
+
+                    A acessibilidade digital é importante
+                    porque diferentes pessoas possuem
+                    diferentes necessidades.
+
+                    Uma página acessível pode proporcionar
+                    uma experiência mais inclusiva,
+                    confortável e independente.
+
+                    O objetivo deste projeto é mostrar
+                    como recursos simples podem ajudar
+                    a tornar uma experiência digital
+                    mais acessível para diferentes pessoas.
+
+                `;
+
+
+                /*
+                 * Cria a fala.
+                 */
+
+                const fala =
+                    new SpeechSynthesisUtterance(
+                        texto
+                    );
+
+
+                /*
+                 * Define português do Brasil.
+                 */
+
+                fala.lang =
+                    "pt-BR";
+
+
+                /*
+                 * Velocidade da voz.
+                 */
+
+                fala.rate =
+                    2.5;
+
+
+                /*
+                 * Tom da voz.
+                 */
+
+                fala.pitch =
+                    1;
+
+
+                /*
+                 * Volume.
+                 */
+
+                fala.volume =
+                    1;
+
+
+                /* Quando começar */
+
+                fala.onstart =
+                    function () {
+
+                        falando = true;
+
+                        botaoAudio.textContent =
+                            "⏹ Parar descrição";
+
+                    };
+
+
+                /* Quando terminar */
+
+                fala.onend =
+                    function () {
+
+                        falando = false;
+
+                        botaoAudio.textContent =
+                            "🔊 Ouvir descrição";
+
+                    };
+
+
+                /* Se ocorrer erro */
+
+                fala.onerror =
+                    function () {
+
+                        falando = false;
+
+                        botaoAudio.textContent =
+                            "🔊 Ouvir descrição";
+
+                    };
+
+
+                /*
+                 * Inicia a leitura.
+                 */
+
+                window.speechSynthesis.speak(
+                    fala
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           RESTAURAR CONFIGURAÇÕES
+        ===================================================== */
+
+        botaoReset.addEventListener(
+            "click",
+            function () {
+
+                /*
+                 * Para a audiodescrição.
+                 */
+
+                window.speechSynthesis.cancel();
+
+                falando = false;
+
+
+                botaoAudio.textContent =
+                    "🔊 Ouvir descrição";
+
+
+                /*
+                 * Saturação.
+                 */
+
+                slider.value =
+                    100;
+
+
+                tela.style.filter =
+                    "saturate(100%)";
+
+
+                valorSaturacao.textContent =
+                    "100%";
+
+
+                /*
+                 * Alto contraste.
+                 */
+
+                document.body.classList.remove(
+                    "alto-contraste"
+                );
+
+
+                botaoContraste.setAttribute(
+                    "aria-pressed",
+                    "false"
+                );
+
+
+                botaoContraste.textContent =
+                    "Ativar alto contraste";
+
+
+                /*
+                 * Comic Sans.
+                 */
+
+                document.body.classList.remove(
+                    "fonte-dislexia"
+                );
+
+
+                botaoDislexia.setAttribute(
+                    "aria-pressed",
+                    "false"
+                );
+
+
+                botaoDislexia.textContent =
+                    "Ativar Comic Sans";
+
+
+                /*
+                 * Daltonismo.
+                 */
+
+                document.body.classList.remove(
+                    "daltonismo"
+                );
+
+
+                botaoDaltonismo.setAttribute(
+                    "aria-pressed",
+                    "false"
+                );
+
+
+                botaoDaltonismo.textContent =
+                    "Ativar modo para daltonismo";
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
